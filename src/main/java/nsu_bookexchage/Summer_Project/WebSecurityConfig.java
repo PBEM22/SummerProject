@@ -24,13 +24,17 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // OPTIONS 메서드는 모든 경로에서 허용
                         .requestMatchers("/api/**").permitAll() // "/api/**" 경로는 모든 요청 허용
-                        .anyRequest().authenticated() // 나머지 요청은 인증이 필요
+//                        .anyRequest().authenticated() // 나머지 요청은 인증이 필요
+                        .anyRequest().permitAll()   // 요청 전부 허가 (임시) => PBEM22
                 );
+
+
         return http.build();
     }
 
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
+//        configuration.addAllowedOrigin("http://localhost:8080");
         configuration.addAllowedOrigin("http://localhost:3000"); // 허용할 오리진(도메인) 설정
         configuration.addAllowedMethod("*"); // 모든 HTTP 메서드 허용
         configuration.addAllowedHeader("*"); // 모든 HTTP 헤더 허용
